@@ -8,6 +8,7 @@ lvim.colorscheme = "gruvbox-material"
 vim.keymap.set("i", "jk", "<Esc>")
 vim.keymap.set("n", "<C-s>", ":w<CR>")
 vim.keymap.set("n", "<C-m>", ":MinimapToggle<CR>")
+vim.keymap.set("n", "<C-x>", ":BufferKill<CR>")
 -- plugins
 lvim.plugins = {
 	"sainnhe/gruvbox-material",
@@ -135,13 +136,14 @@ lvim.plugins = {
 			require("todo-comments").setup()
 		end,
 	},
-	{
-		"wakatime/vim-wakatime",
-	},
+	--[[ {
+    "wakatime/vim-wakatime",
+  }, ]]
 }
 -- configs
 lvim.format_on_save.enabled = true
 lvim.builtin.treesitter.rainbow.enable = true
+lvim.builtin.treesitter.ignore_install = { "make" }
 
 --formatters
 local formatters = require("lvim.lsp.null-ls.formatters")
@@ -153,8 +155,16 @@ formatters.setup({
 	{ name = "stylua" },
 	{ name = "htmlbeautifier" },
 	{ name = "yamlfmt" },
+	{ name = "black" },
 })
 
 --linters
 local linters = require("lvim.lsp.null-ls.linters")
-linters.setup({ name = "golangci-lint" })
+linters.setup({
+	-- { name = "golangci-lint" },
+	{ name = "flake8" },
+})
+
+--lsp
+-- add `pyright` to `skipped_servers` list
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "pyright" })
