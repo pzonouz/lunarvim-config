@@ -3,7 +3,8 @@
 -- Forum: https://www.reddit.com/r/lunarvim/
 -- Discord: https://discord.com/invite/Xb9B4Ny
 -- colorschemes
-lvim.colorscheme = "gruvbox-material"
+-- lvim.colorscheme = "gruvbox-material"
+lvim.colorscheme = "tokyonight"
 --keybindings
 vim.keymap.set("i", "jk", "<Esc>")
 vim.keymap.set("n", "<C-s>", ":w<CR>")
@@ -136,6 +137,29 @@ lvim.plugins = {
 			require("todo-comments").setup()
 		end,
 	},
+	{
+		"christoomey/vim-tmux-navigator",
+		cmd = {
+			"TmuxNavigateLeft",
+			"TmuxNavigateDown",
+			"TmuxNavigateUp",
+			"TmuxNavigateRight",
+			"TmuxNavigatePrevious",
+		},
+		keys = {
+			{ "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
+			{ "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
+			{ "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
+			{ "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
+			{ "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
+		},
+	},
+	{
+		"folke/tokyonight.nvim",
+		lazy = false,
+		priority = 1000,
+		opts = {},
+	},
 	--[[ {
     "wakatime/vim-wakatime",
   }, ]]
@@ -164,7 +188,3 @@ linters.setup({
 	-- { name = "golangci-lint" },
 	{ name = "flake8" },
 })
-
---lsp
--- add `pyright` to `skipped_servers` list
-vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "pyright" })
